@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Nails — Премиум маникюр в Ташкенте</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-soft: #fff1f2;
+            --dark: #1b1b1b;
+            --gray: #6b7280;
+            --light-bg: #faf9f6;
+            --white: #ffffff;
+            --radius: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--light-bg); color: var(--dark); line-height: 1.6; }
+
+        /* Навигация */
+        .navbar {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { font-weight: 700; font-size: 1.3rem; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; font-size: 0.95rem; transition: 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-btn { background: var(--dark); color: white !important; padding: 10px 22px; border-radius: 30px; transition: 0.2s; }
+        .nav-btn:hover { background: var(--primary); }
+
+        /* Hero */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)), 
+                        url('images/hero.jpg') no-repeat center center/cover,
+                        linear-gradient(135deg, #1b1b1b 0%, #3a1c22 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-top: 65px;
+        }
+        .hero-badge { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.25); padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 18px; font-weight: 600; }
+        .hero-content h1 { font-size: 3.2rem; margin-bottom: 14px; font-weight: 700; line-height: 1.15; }
+        .hero-content p { font-size: 1.15rem; margin-bottom: 28px; opacity: 0.92; font-weight: 300; }
+        
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            padding: 14px 34px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.3);
+            transition: 0.25s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(230, 57, 70, 0.4); }
+
+        .container { max-width: 1000px; margin: -50px auto 60px auto; padding: 0 20px; position: relative; z-index: 10; }
+        .card { background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: 0 15px 35px rgba(0,0,0,0.04); margin-bottom: 35px; border: 1px solid rgba(0,0,0,0.03); }
+        .card h2 { text-align: center; margin-bottom: 25px; font-size: 1.75rem; font-weight: 700; }
+
+        /* Галерея */
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .gallery-item { background: #fdfbfb; padding: 12px; border-radius: 14px; text-align: center; border: 1px solid #f1f1f1; transition: 0.3s; cursor: pointer; }
+        .gallery-item:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(230,57,70,0.12); border-color: #fecdd3; }
+        .gallery-item img { width: 100%; height: 210px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; background-color: #fce7f3; }
+        .gallery-item span { font-size: 0.95rem; font-weight: 600; color: #374151; display: block; }
+        .gallery-item small { color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-top: 4px; display: inline-block; }
+
+        /* Квиз */
+        .quiz-card { background: linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); border: 1px solid #ffe4e6; }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .quiz-btn { background: white; border: 1px solid #e5e7eb; padding: 15px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 0.95rem; transition: 0.2s; text-align: left; color: var(--dark); }
+        .quiz-btn:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(230,57,70,0.25); }
+        .quiz-result { text-align: center; font-weight: 600; font-size: 1.25rem; color: var(--primary); background: white; padding: 25px; border-radius: 12px; }
+
+        /* Форма записи */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group.full { grid-column: span 2; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.88rem; color: #374151; }
+        select, input { width: 100%; padding: 13px 16px; border: 1px solid #e5e7eb; border-radius: 10px; font-size: 0.95rem; background: #f9fafb; color: var(--dark); outline: none; transition: 0.2s; }
+        select:focus, input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-soft); }
+        #msg { margin-top: 15px; text-align: center; font-weight: 600; color: #10b981; }
+
+        /* Модалка истории */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: white; max-width: 520px; padding: 35px; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.6rem; cursor: pointer; color: var(--gray); }
+        .modal-content h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.35rem; }
+        .modal-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.7; }
+
+        @media(max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .form-grid, .quiz-options, .gallery-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: span 1; }
+            .navbar { padding: 15px 20px; }
+            .nav-links a:not(.nav-btn) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">✨ Studio<span>Nails</span></a>
+        <div class="nav-links">
+            <a href="#quiz">Подбор стиля</a>
+            <a href="#gallery">Галерея и Истории</a>
+            <a href="/faq.html">FAQ и Наука</a>
+            <a href="#booking" class="nav-btn">Записаться</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Премиум студия в Ташкенте</span>
+            <h1>Идеальный маникюр, создающий настроение</h1>
+            <p>Безупречная стерильность по СанПиН, авторский дизайн и материалы премиум-класса</p>
+            <a href="#booking" class="btn-main">Забронировать слот</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Квиз -->
+        <div class="card quiz-card" id="quiz">
+            <h2>🎯 Интерактивный подбор идеального покрытия</h2>
+            <div id="quizContainer">
+                <div id="quizQuestion" style="font-weight: 600; font-size: 1.1rem; text-align: center; margin-bottom: 15px; color: #1f2937;"></div>
+                <div class="quiz-options" id="quizOptions"></div>
+            </div>
+            <div id="quizResultArea" style="display:none;">
+                <div class="quiz-result" id="quizResultText"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn-main" onclick="restartQuiz()" style="padding: 10px 25px; font-size: 0.9rem;">Пройти тест заново</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Галерея -->
+        <div class="card" id="gallery">
+            <h2>📸 Наши работы и их история</h2>
+            <p style="text-align:center; color: var(--gray); margin-bottom: 25px; font-size: 0.95rem;">Нажмите на карточку, чтобы открыть историю происхождения стиля</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openStory('french')">
+                    <img src="images/french.jpg" alt="Французский маникюр">
+                    <span>Классический Френч</span>
+                    <small>📖 Узнать историю</small>
+                </div>
+
+                <div class="gallery-item" onclick="openStory('nude')">
+                    <img src="images/nude.jpg" alt="Нюдовый стиль">
+                    <span>Королевский Nude</span>
+                    <small>📖 Узнать историю</small>
+                </div>
+
+                <div class="gallery-item" onclick="openStory('red')">
+                    <img src="images/red.jpg" alt="Красный лак">
+                    <span>Голливудский красный</span>
+                    <small>📖 Узнать историю</small>
+                </div>
+
+                <div class="gallery-item" onclick="openStory('ombre')">
+                    <img src="images/ombre.jpg" alt="Градиент омбре">
+                    <span>Нежное Омбре</span>
+                    <small>📖 Узнать историю</small>
+                </div>
+
+                <div class="gallery-item" onclick="openStory('gel')">
+                    <img src="images/gel.jpg" alt="Моделирование ногтей">
+                    <span>Моделирование миндаля</span>
+                    <small>📖 Узнать историю</small>
+                </div>
+
+                <div class="gallery-item" onclick="openStory('art')">
+                    <img src="images/art.jpg" alt="Арт дизайн">
+                    <span>Креативный Арт</span>
+                    <small>📖 Узнать историю</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма записи -->
+        <div class="card" id="booking">
+            <h2>Онлайн-запись к мастеру</h2>
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Выберите услугу:</label>
+                        <select id="serviceSelect" required></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Дата:</label>
+                        <input type="date" id="dateInput" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Время:</label>
+                        <select id="timeSelect" required>
+                            <option value="10:00">10:00 — Утренний слот</option>
+                            <option value="12:30">12:30 — День</option>
+                            <option value="15:00">15:00 — День</option>
+                            <option value="17:30">17:30 — Вечер</option>
+                            <option value="19:30">19:30 — Поздний вечер</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ваше имя:</label>
+                        <input type="text" id="nameInput" placeholder="Например: Камила" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Номер телефона:</label>
+                        <input type="tel" id="phoneInput" placeholder="+998 90 123 45 67" required>
+                    </div>
+
+                    <div class="form-group full" style="margin-top: 15px;">
+                        <button type="submit" class="btn-main" style="width: 100%; text-align: center;">Подтвердить запись</button>
+                    </div>
+                </div>
+            </form>
+            <div id="msg"></div>
+        </div>
+
+    </div>
+
+    <!-- Модалка истории -->
+    <div class="modal" id="storyModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeStory()">×</span>
+            <h3 id="storyTitle"></h3>
+            <p id="storyText"></p>
+        </div>
+    </div>
+
+    <script>
+        const stories = {
+            french: {
+                title: "Французский маникюр (French)",
+                text: "Френч создали в Лос-Анджелесе в 1976 году. Основатель марки ORLY Джефф Пинк получил заказ от голливудских продюсеров: актрисы тратили часы на перекрашивание ногтей под разные платья между сценами. Он создал универсальный натуральный дизайн с белым свободным краем. Вскоре после показа мод в Париже стиль получил мировую славу."
+            },
+            nude: {
+                title: "Стиль Nude (Сдержанная роскошь)",
+                text: "Нюдовые оттенки закрепились в культуре благодаря британскому королевскому двору. В 1989 году королева Елизавета II выбрала оттенок 'Ballet Slippers', после чего ношение ярких оттенков стало моветоном на протокольных мероприятиях высшего света."
+            },
+            red: {
+                title: "Классический красный лак",
+                text: "В Древнем Египте оттенок ногтей обозначал социальный ранг: царицы Нефертити и Клеопатра покрывали ногти составами глубокого рубинового тона. В 1930-х годах Чарльз Ревсон (основатель Revlon) создал первый синтетический непрозрачный лак, сделав красный цвет символом кинозвезд."
+            },
+            ombre: {
+                title: "Маникюр Омбре (Градиент)",
+                text: "Слово 'ombré' переводится с французского как 'затененный'. Метод зародился в текстильном производстве XIX века, когда ткани окрашивали с плавным переходом насыщенности. В ногтевой эстетике градиент оптически удлиняет пальцы."
+            },
+            gel: {
+                title: "Искусственное моделирование и наращивание",
+                text: "В 1957 году стоматолог Фред Слэк случайно сломал ноготь на приеме. Используя стоматологический акриловый полимер и фольгу, он восстановил форму ногтя. Позже он запатентовал технологию моделирования ногтевого ложа, положив начало всей индустрии полигелей."
+            },
+            art: {
+                title: "Нейл-арт и авторская роспись",
+                text: "Японский район Харадзюку в 1990-х годах породил культуру 'Kawai Nails'. Мастера впервые превратили ногтевую пластину в микро-холст, используя ручную роспись, инкрустацию камнями и объемные элементы."
+            }
+        };
+
+        function openStory(type) {
+            document.getElementById('storyTitle').textContent = stories[type].title;
+            document.getElementById('storyText').textContent = stories[type].text;
+            document.getElementById('storyModal').style.display = 'flex';
+        }
+
+        function closeStory() {
+            document.getElementById('storyModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('storyModal');
+            if (event.target === modal) modal.style.display = 'none';
+        }
+
+        let servicesData = [];
+        fetch('/api/services')
+            .then(res => res.json())
+            .then(data => {
+                servicesData = data;
+                const select = document.getElementById('serviceSelect');
+                data.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = s.name;
+                    opt.textContent = `${s.name} — ${s.price} (${s.duration})`;
+                    select.appendChild(opt);
+                });
+            });
+
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                service: document.getElementById('serviceSelect').value,
+                date: document.getElementById('dateInput').value,
+                time: document.getElementById('timeSelect').value,
+                client_name: document.getElementById('nameInput').value,
+                client_phone: document.getElementById('phoneInput').value
+            };
+
+            const res = await fetch('/api/appointments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('msg').textContent = '✨ Запись успешно оформлена! Ждем вас в студии.';
+                document.getElementById('bookingForm').reset();
+                setTimeout(() => { document.getElementById('msg').textContent = ''; }, 5000);
+            } else {
+                alert('Ошибка при бронировании');
+            }
+        });
+
+        const quizQuestions = [
+            { q: "Вопрос 1/8: Какой у вас естественный цвет волос?", options: ["Блондинка / Русая", "Брюнетка / Шатенка", "Рыжая", "Яркое креативное окрашивание"] },
+            { q: "Вопрос 2/8: Какой стиль в одежде вы предпочитаете?", options: ["Классический / Деловой", "Casual / Повседневный", "Романтичный / Женственный", "Яркий / Экстравагантный"] },
+            { q: "Вопрос 3/8: Какой повод для визита к мастеру?", options: ["Повседневная работа / учеба", "Важное свидание", "Праздник / Свадьба / Вечеринка", "Отпуск или поездка"] },
+            { q: "Вопрос 4/8: Какая форма ногтей вам ближе?", options: ["Аккуратный мягкий квадрат", "Элегантный овал / миндаль", "Длинные и выразительные", "Короткие практичные"] },
+            { q: "Вопрос 5/8: Какое покрытие вы обычно выбираете?", options: ["Без покрытия (натуральный уход)", "Однотонный нежный нюд", "Классический Френч", "Яркие цвета или сложный арт"] },
+            { q: "Вопрос 6/8: Как вы относитесь к длине ногтей?", options: ["Только короткие", "Средняя удобная длина", "Максимальная длина (наращивание)", "Средняя с укреплением"] },
+            { q: "Вопрос 7/8: Какой финиш вам нравится больше?", options: ["Глянцевый сияющий", "Сдержанный матовый", "С блестками / светоотражающий", "Без разницы / доверюсь мастеру"] },
+            { q: "Вопрос 8/8: Нужен ли вам сложный дизайн со стразами или рисунками?", options: ["Нет, минимализм", "Только легкий акцент на один палец", "Да, полноценный арт-дизайн", "Индивидуальный образ"] }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+
+        function renderQuiz() {
+            if (currentQuestion < quizQuestions.length) {
+                const qObj = quizQuestions[currentQuestion];
+                document.getElementById('quizQuestion').textContent = qObj.q;
+                const optionsDiv = document.getElementById('quizOptions');
+                optionsDiv.innerHTML = '';
+                qObj.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-btn';
+                    btn.textContent = opt;
+                    btn.onclick = () => selectAnswer(opt);
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function selectAnswer(answer) {
+            userAnswers.push(answer);
+            currentQuestion++;
+            renderQuiz();
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResultArea').style.display = 'block';
+            
+            let recommended = "Маникюр + Однотонное гелевое покрытие";
+            if (userAnswers.includes("Без покрытия (натуральный уход)")) {
+                recommended = "Премиум уход (Японский маникюр + СПА)";
+            } else if (userAnswers.includes("Классический Френч")) {
+                recommended = "Маникюр + Френч / Лунный дизайн";
+            } else if (userAnswers.includes("Максимальная длина (наращивание)") || userAnswers.includes("Яркий / Экстравагантный")) {
+                recommended = "Наращивание ногтей (гель / полигель)";
+            } else if (userAnswers.includes("Да, полноценный арт-дизайн")) {
+                recommended = "Сложный арт-дизайн (стемпинг, стразы, фигурки)";
+            }
+
+            document.getElementById('quizResultText').innerHTML = `✨ Рекомендуем вам:<br><span style="color:#1f2937; font-size:1.35rem; display:block; margin-top:8px;">${recommended}</span><br><span style="font-size:0.85rem; color:#6b7280; font-weight:normal;">Услуга выбрана в форме ниже!</span>`;
+            
+            const select = document.getElementById('serviceSelect');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text.includes(recommended.split(' ')[0])) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = [];
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizResultArea').style.display = 'none';
+            renderQuiz();
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>

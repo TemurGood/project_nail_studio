@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Частые вопросы и научные факты — Studio Nails</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --dark: #1b1b1b;
+            --gray: #6b7280;
+            --light-bg: #faf9f6;
+            --white: #ffffff;
+            --radius: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--light-bg); color: var(--dark); line-height: 1.6; }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { font-weight: 700; font-size: 1.3rem; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links a { text-decoration: none; color: var(--gray); font-weight: 500; margin-left: 20px; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .container { max-width: 850px; margin: 40px auto 60px auto; padding: 0 20px; }
+        h1 { text-align: center; margin-bottom: 10px; font-size: 2.2rem; }
+        .subtitle { text-align: center; color: var(--gray); margin-bottom: 40px; font-size: 1.05rem; }
+
+        .faq-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary);
+            border-top: 1px solid rgba(0,0,0,0.02);
+            border-right: 1px solid rgba(0,0,0,0.02);
+            border-bottom: 1px solid rgba(0,0,0,0.02);
+        }
+        .faq-title { font-weight: 700; font-size: 1.15rem; color: #111827; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .faq-desc { color: #4b5563; font-size: 0.98rem; line-height: 1.7; }
+        .badge { display: inline-block; background: #fee2e2; color: #991b1b; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">✨ Studio<span>Nails</span></a>
+        <div class="nav-links">
+            <a href="/">← На главную</a>
+            <a href="/faq.html" style="color: var(--primary);">FAQ и Факты</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Все о здоровье ногтей и процедуре</h1>
+        <p class="subtitle">Ответы на популярные вопросы и факты из дерматологии и химии материалов</p>
+
+        <div class="faq-card">
+            <span class="badge">Физика и анатомия</span>
+            <div class="faq-title">⚖️ Почему нельзя носить гель-лак дольше 3–4 недель?</div>
+            <div class="faq-desc">
+                По мере роста ногтя наивысшая точка искусственного материала (апекс) смещается от кутикулы к свободному краю. Согласно закону рычага, давление на кончик ногтя возрастает в 3–4 раза. Это приводит к трещинам в стрессовой зоне, онихолизису (отслоению ногтя от ложа) или травматическому отрыву вместе с живой тканью.
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <span class="badge">Стерильность и медицина</span>
+            <div class="faq-title">🧪 Как отличить настоящий сухожар от подделки?</div>
+            <div class="faq-desc">
+                Медицинский сухожаровой шкаф (сертифицированный по СанПиН) нагревает воздух строго до 180°C и выдерживает инструменты ровно 60 минут. При этом химический индикатор 4 или 5 класса на крафт-пакете меняет цвет (например, с бежевого на темно-коричневый). Китайские ультрафиолетовые коробки не стерилизуют металлический инструмент, а лишь поддерживают чистоту уже стерильного оборудования.
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <span class="badge">Химия полимеров</span>
+            <div class="faq-title">🔥 Почему гель печет в UV/LED-лампе?</div>
+            <div class="faq-desc">
+                Это явление называется экзотермической реакцией полимеризации. Фотоинициаторы под воздействием волн ультрафиолета соединяют жидкие олигомеры в твердую кристаллическую решетку, выделяя тепловую энергию. Если ноготь тонкий или слой базы слишком плотный, тепло передается нервным окончаниям ногтевого ложа. В этот момент руку обязательно нужно вынуть из лампы на 5 секунд, чтобы избежать термического ожога онихобластов.
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <span class="badge">Дерматология</span>
+            <div class="faq-title">☀️ Вредны ли LED-лампы для кожи рук?</div>
+            <div class="faq-desc">
+                Современные гибридные лампы работают в узком диапазоне длин волн (365–405 нм, безопасный спектр UVA). За 2 минуты полимеризации доза облучения сопоставима с 10 минутами нахождения под полуденным солнцем без SPF. Тем не менее, для максимальной защиты чувствительной кожи мы рекомендуем наносить крем с SPF или использовать перчатки без пальчиков.
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <span class="badge">Уход и регенерация</span>
+            <div class="faq-title">🍃 Нужно ли давать ногтям «дышать» без покрытия?</div>
+            <div class="faq-desc">
+                Ноготь состоит из 100–150 слоев ороговевших кератиновых пластин, в которых нет капилляров и легких — они физически не способны «дышать». Все питание и кислород ногтевой аппарат получает через матрикс (корень ногтя) с током крови. Правильно нанесенное и аккуратно снятое покрытие фрезой (без пропилов пилкой) выполняет защитную каркасную функцию от бытовой химии и механических повреждений.
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <span class="badge">Долговечность</span>
+            <div class="faq-title">💧 Почему покрытие может отслаиваться в первые дни?</div>
+            <div class="faq-desc">
+                Основные причины отслоек: гипергидроз ладоней (избыточная влажность), прием антибиотиков или гормональные колебания, контакт с агрессивной бытовой химией без перчаток в первые 24 часа после маникюра, а также привычка использовать ногти как инструмент (открывать баночки, сдирать скотч).
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

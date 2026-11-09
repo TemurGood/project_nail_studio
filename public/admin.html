@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель — Записи</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; background: #faf9f6; }
+        .card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { border: 1px solid #eee; padding: 12px; text-align: left; font-size: 0.95rem; }
+        th { background: #1b1b1b; color: white; }
+        tr:nth-child(even) { background: #fdfbfb; }
+        .login-box { max-width: 380px; margin: 80px auto; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { background: #e63946; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        button:hover { background: #c12836; }
+        .back-link { display: inline-block; margin-bottom: 15px; color: #e63946; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay" class="login-box card">
+        <h2>🔒 Вход в админку</h2>
+        <input type="text" id="username" placeholder="Логин (admin123456)">
+        <input type="password" id="password" placeholder="Пароль (pass123456)">
+        <button onclick="checkAuth()">Войти</button>
+        <div id="loginError" style="color: red; margin-top: 10px; font-size: 0.9rem;"></div>
+    </div>
+
+    <div id="adminPanel" class="card" style="display: none;">
+        <a href="/" class="back-link">← На главную</a>
+        <h2>📊 Список онлайн-записей</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Клиент</th>
+                    <th>Телефон</th>
+                    <th>Услуга</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function checkAuth() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            if (u === 'admin123456' && p === 'pass123456') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAppointments();
+            } else {
+                document.getElementById('loginError').textContent = 'Неверный логин или пароль!';
+            }
+        }
+
+        async function loadAppointments() {
+            try {
+                const res = await fetch('/api/appointments');
+                const data = await res.json();
+                const tbody = document.getElementById('tableBody');
+                tbody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Записей пока нет</td></tr>`;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.client_name}</td>
+                        <td>${item.client_phone}</td>
+                        <td>${item.service}</td>
+                        <td>${item.date}</td>
+                        <td>${item.time}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error('Ошибка загрузки записей', err);
+            }
+        }
+    </script>
+</body>
+</html>
